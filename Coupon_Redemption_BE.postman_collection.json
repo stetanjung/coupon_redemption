@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "369cf9de-4f9f-4323-8207-3a044ae6ae8a",
+		"name": "Coupon Redemption BE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "5209429"
+	},
+	"item": [
+		{
+			"name": "Coupon",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"couponCode\": \"EVER1\",\n    \"couponName\": \"evercare $50\",\n    \"quota\": 2,\n    \"startDate\": \"2023-12-29\",\n    \"endDate\": \"2024-02-01\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/coupon"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Bulk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"couponCode\": \"EVER2\",\n        \"couponName\": \"evercare $100\",\n        \"quota\": 10,\n        \"startDate\": \"2023-12-29\",\n        \"endDate\": \"2024-01-01\"\n    },\n    {\n        \"couponCode\": \"EVER3\",\n        \"couponName\": \"evercare $150\",\n        \"quota\": 3,\n        \"startDate\": \"2024-01-29\",\n        \"endDate\": \"2024-02-01\"\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/coupon/bulk"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": "localhost:3000/coupon"
+					},
+					"response": []
+				},
+				{
+					"name": "delete coupon",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:3000/coupon/EVER1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Redemption",
+			"item": [
+				{
+					"name": "redeem coupon",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hkid\": \"A12333334\",\n    \"couponCode\": \"EVER1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/redemption"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseLogin = pm.response.json();",
+									"",
+									"const accessToken = responseLogin.accessToken;",
+									"",
+									"pm.environment.set(\"auth_token\", accessToken);",
+									"",
+									"console.log(\"accessToken: \",pm.environment.get(\"auth_token\"));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"root\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:3000/auth"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

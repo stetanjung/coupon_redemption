@@ -29,7 +29,7 @@ git clone https://github.com/stetanjung/coupon_redemption.git
 2. Navigate to the project directory:
 
 ```bash
-cd coupon_redemtion
+cd coupon_redemption
 ```
 
 3. Build and start the Docker containers using Docker Compose:
@@ -58,6 +58,8 @@ Contact
 For questions or support, please contact [stephen.tanjung@gmail.com].
 
 ## API
+
+The API example can download from `Coupon_Redemption_BE.postman_collection.json` and import to the Postman to test the API.
 
 ### Admin related API
 
@@ -88,6 +90,7 @@ curl --location 'localhost:3000/coupon' \
 ```
 
 3. Create bulk coupon (no interface for this)
+
 ```
 curl --location 'localhost:3000/coupon/bulk' \
 --header 'Authorization: Bearer {based on the response of #1}' \
@@ -111,19 +114,23 @@ curl --location 'localhost:3000/coupon/bulk' \
 ```
 
 4. Get all coupon
+
 ```
 curl --location 'localhost:3000/coupon' \
 --header 'Authorization: Bearer {based on the response of #1}'
 ```
 
 5. Delete coupon
+
 ```
 curl --location --request DELETE 'localhost:3000/coupon/{couponCode}'
 --header 'Authorization: Bearer {based on the response of #1}'
 ```
 
 ### Redemption related API
+
 1. Redeem
+
 ```
 curl --location 'localhost:3000/redemption' \
 --header 'Content-Type: application/json' \
