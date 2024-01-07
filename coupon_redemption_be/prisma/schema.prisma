@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Coupons {
+  id             Int           @id @default(autoincrement())
+  couponCode     String        @unique
+  couponName     String
+  quota          Int
+  remainingQuota Int
+  startDate      DateTime      @db.Date
+  endDate        DateTime      @db.Date
+  createdAt      DateTime      @default(now())
+  redemptions    Redemptions[]
+
+  @@map("coupons")
+}
+
+model Redemptions {
+  id         Int      @id @default(autoincrement())
+  hkid       String
+  createdAt  DateTime @default(now())
+  couponCode String
+  coupon     Coupons  @relation(fields: [couponCode], references: [couponCode])
+
+  @@map("redemptions")
+}
